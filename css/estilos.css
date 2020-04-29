@@ -1,0 +1,31 @@
+@charset "utf-8";
+/* CSS Document */
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
+		.campos {
+    		font-family: "Comic Neue";
+			font-size:12pt;
+			color: white;
+			width: 380px;
+			background-color:#adeaeb;
+			padding: 5px 7px 5px 7px;
+			border:1px;
+			border-radius: 50px;
+		}
+		.tamanio {
+			width: 100px;
+		}
+		.tamanioNombre {
+			width: 380px;
+		}
+		.submit:hover {
+  			background-color: #00ccce;
+ 			color: white;
+		}
+		.colorIconos {
+			color: #00CCCE;
+		}
+		.tamanioLogo {
+			width: 100px;
+			height: 100px;
+		}
+		
