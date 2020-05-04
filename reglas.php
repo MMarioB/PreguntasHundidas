@@ -18,7 +18,7 @@
 		<div class="row justify-content-center h-100">
 			<div class="col-sm-8 align-self-center text-center">
 				<img src="imgs/reglasPH_.png" width="100%" height="100%">
-				<button class="btn-group-sm campos submit" onclick="location.href='posicionar.php'">JUGAR!</button>
+				<button class="btn-group-sm campos submit" onclick="location.href='buscaminas.php'">JUGAR!</button>
 			</div>
 		</div>	
 	</div>
