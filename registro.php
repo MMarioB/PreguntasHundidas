@@ -1,39 +1,3 @@
-<?php
-		$servername = "hl192.dinaserver.com";
-		$database = "cfgsl_1dam20";
-		$username = "cfgsl_ad1dam20";
-		$password = "morcilla1";
-        $nombre = $_POST['tNombre'];
-        $email = $_POST['tEmail'];
-        $contrasena = $_POST['tPass'];
-		
-		if($nombre != "" ||$email != "" || $contrasena!= ""){
-			//Crear conexion
-			$conexion = mysqli_connect($servername, $username, $password, $database);
-			$acentos = $conexion -> query("SET NAMES 'utf8'");
-			/* Comprobar conexión */
-						if (mysqli_connect_errno()) {
-							printf("Conexión fallida: %s\n", mysqli_connect_error());
-							exit();
-						}
-
-			echo "Conexion Completada";
-
-			$sql = 'insert into 3registro(nombre,email,contrasena) values ("'.$nombre.'",'.$email.',"'.$contrasena.'")';
-			
-			$rs=mysqli_query($conexion, $sql);
-
-			echo "Usuario creado correctamente";
-
-			mysqli_close($conexion);
-			
-		} else {
-			
-		}
-		
-	
-?>
-
 <!doctype html>
 <html lang="es" class="h-100">
 <head>
@@ -53,6 +17,39 @@
 		<div class="row justify-content-center h-100">
 			<div class="col-sm-8 align-self-center text-center">
 				<form action="login.php" method="post" name="formu" id="formu">
+                    <?php
+			
+                        if(isset($_POST['nombre'])){
+                            $nombre = $_POST['nombre'];
+                            $password = $_POST['password'];
+                            $email = $_POST['email'];
+
+                            $campos = array();
+
+                            if($nombre == ""){
+                                array_push($campos, "El campo Nombre no pude estar vacío");
+                            }
+
+                            if($password == "" || strlen($password) < 6){
+                                array_push($campos, "El campo Password no puede estar vacío, ni tener menos de 6 caracteres.");
+                            }
+
+                            if($email == "" || strpos($email, "@") === false){
+                                array_push($campos, "Ingresa un correo electrónico válido.");
+                            }
+
+                            if(count($campos) > 0){
+                                echo "<div class='error'>";
+                                for($i = 0; $i < count($campos); $i++){
+                                    echo "<li>".$campos[$i]."</i>";
+                                }
+                            }else{
+                                echo "<div class='correcto'>
+                                        Datos correctos";
+                            }
+                            echo "</div>";
+                        }
+                    ?>
 					<table border="0" width="100%" height="100%" cellpadding="8">
 						<tr>
 							<td align="left" colspan="3">
@@ -73,7 +70,7 @@
 						<tr>
 							<td><i class="fas fa-user colorIconos" ></i></td>
 							<td align="left" colspan="3">
-								<input class="form-control tamanioNombre" type="text" name="tNombre" id="tNombre" maxlength="15" value="<?=$_GET['tNombre']?>">
+								<input class="form-control tamanioNombre" type="text" name="nombre" id="nombre" maxlength="15" value="<?=$_GET['nombre']?>">
 							</td>
 						</tr>
 						<tr>
@@ -85,7 +82,7 @@
 						<tr>
 							<td><i class="fas fa-envelope colorIconos"></i></td>
 							<td align="left">
-								<input class="form-control" type="text" name="tEmail" id="tEmail" value="<?=$_GET['tEmail']?>">	
+								<input class="form-control" type="text" name="email" id="email" value="<?=$_GET['email']?>">	
 							</td>
 						</tr>
 						
@@ -98,7 +95,7 @@
 						<tr>
 							<td><i class="fas fa-lock colorIconos"></i></td>
 							<td align="left">
-								<input class="form-control" type="password" name="tPass" id="tPass"  value="<?=$_GET['tPass']?>">	
+								<input class="form-control" type="password" name="password" id="password"  value="<?=$_GET['password']?>">	
 							</td>
 						</tr>
 						
@@ -112,6 +109,25 @@
 			</div>
 		</div>	
 	</div>
-	
 </body>
 </html>
+
+<form action="formulario.php" method="POST">
+		
+		<p>
+		Nombre:<br/>
+		<input type="text" name="nombre">
+		</p>
+
+		<p>
+		Password:<br/>
+		<input type="password" name="password">
+		</p>
+
+		<p>
+		correo electrónico:<br/>
+		<input type="text" name="email">
+		</p>
+
+		<p><input type="submit" value="enviar datos"></p> 
+	</form>
