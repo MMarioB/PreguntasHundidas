@@ -741,8 +741,25 @@
             div.style.display = 'none';
         }
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#open').on('click', function(){
+                $('#popup').fadeIn('slow');
+                $('.popup-overlay').fadeIn('slow');
+                $('.popup-overlay').height($(window).height());
+                return false;
+            });
+
+            $('#close').on('click', function(){
+                $('#popup').fadeOut('slow');
+                $('.popup-overlay').fadeOut('slow');
+                return false;
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 </head>
+    
 
 <body class="h-100" background="imgs/fondomar.jpg">
 	<div class="container h-100">
@@ -760,7 +777,7 @@
                         <td>
                             <a href="javascript:mostrar1();"><img src="imgs/incognita.png" width="30px" height="30px"/>
                                 <div id="flotante1" style="display:none;">
-                                  <div id="close"><a href="javascript:cerrar1();"><font color="#8dd8f8">.</font></a></div>
+                                  <div><a href="javascript:cerrar1();"><font color="#8dd8f8">.</font></a></div>
                                      <table align="center">
                                         <tr id="Mostrar_Tabla1" data-id="1" class="opciones">
                                             <td>
@@ -769,7 +786,18 @@
                                         </tr>
                                         <tr id="Tabla_Mostrar1">
                                             <td align="center">
-                                               <?php echo $vector[0][0] ?>
+                                                <div class="row">
+                                                <div id="content" class="col-lg-12">
+                                                    <a href="#" class="btn btn-primary" id="open"></a>
+                                                </div>
+                                            </div>
+                                            <div id="popup" style="display: none;">
+                                                <div class="content-popup">
+                                                    <div class="close"><a href="#" id="close"><img src="imgs/close.png"/></a></div>
+                                                        
+                                                        <?php echo $vector[0][1] ?>
+                                                </div>
+                                            </div>
                                             </td>
                                         </tr>
                                     </table>
