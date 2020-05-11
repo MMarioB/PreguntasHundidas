@@ -86,6 +86,41 @@
             
         }
     ?>
+    <?php
+        $servername = "hl192.dinaserver.com";
+		$database = "cfgsl_1dam20";
+		$username = "cfgsl_ad1dam20";
+		$password = "morcilla1";
+        $nombre=$_POST['nombre'];
+        $mail=$_POST['email'];
+        $pass= $_POST['password'];
+        
+    
+        if($nombre != "" || $mail!= "" || $pass!= ""){
+			//Crear conexion
+			$conexion = mysqli_connect($servername, $username, $password, $database);
+			$acentos = $conexion -> query("SET NAMES 'utf8'");
+			/* Comprobar conexión */
+						if (mysqli_connect_errno()) {
+							printf("Conexión fallida: %s\n", mysqli_connect_error());
+							exit();
+						}
+
+
+			$sql = 'insert into 3registro (nombre,email,contrasena) values ('.'"'.$nombre.'","'.$mail.'","'.$pass.'")';
+			
+			$rs=mysqli_query($conexion, $sql);
+
+
+			mysqli_close($conexion);
+			
+		} else {
+			echo "Error al registrar usuario";
+		}
+    
+        
+    ?>
+    
 <body class="h-100">
 	<div class="container h-100">
 		<div class="row justify-content-center h-100">

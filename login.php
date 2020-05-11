@@ -11,12 +11,43 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/e72a8c50e1.js" crossorigin="anonymous"></script>
 </head>
+<?php 
+    $servername = "hl192.dinaserver.com";
+    $database = "cfgsl_1dam20";
+    $username = "cfgsl_ad1dam20";
+    $password = "morcilla1";
+    
+    $conexion = mysqli_connect($servername, $username, $password, $database);
+    $acentos = $conexion -> query("SET NAMES 'utf8'");
+    /* Comprobar conexión */
+    if (mysqli_connect_errno()) {
+        printf("Conexión fallida: %s\n", mysqli_connect_error());
+        exit();
+    } 
+    
+    session_start();
+    $nombre = $_POST['nombrelogin'];
+    $clave = $_POST['passwordlogin'];
+    
+    $q = "SELECT COUNT(*) AS contar FROM 3registro WHERE nombre=".$nombre." and "."contrasena=".$clave."";
+    $consulta = mysqli_query($conexion, $q);
+    $array = mysqli_fetch_array($consulta);
 
+    if($array['contar']>0){
+        $_SESSION['nombre']=$nombre;
+        header("location: reglas.php");
+    } else {
+        echo "Datos Incorrectos";
+    }
+    
+    mysqli_close($conexion);
+
+?>
 <body class="h-100">
 	<div class="container h-100">
 		<div class="row justify-content-center h-100">
 			<div class="col-sm-8 align-self-center text-center">
-				<form action="reglas.php" method="post" name="formu" id="formu">
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" name="formu" id="formu">
 					<table border="0" width="100%" height="100%" cellpadding="8">
 						<tr>
 							<td align="right">
@@ -39,7 +70,7 @@
 						<tr>
 							<td align="right"><i class="fas fa-ship colorIconos"></i></td>
 							<td align="left">
-								<input class="form-control tamanioNombre" type="text" name="tNombreLogin" id="tNombreLogin" maxlength="15" value="<?=$_GET['tNombreLogin']?>">
+								<input class="form-control tamanioNombre" type="text" name="nombrelogin" id="nombrelogin" value="<?=$_GET['nombrelogin']?>">
 							</td>
 							<td>
 							</td>
@@ -58,7 +89,7 @@
 						<tr>
 							<td align="right"><i class="fas fa-lock colorIconos"></i></td>
 							<td align="left">
-								<input class="form-control tamanioNombre" type="password" name="tPassLogin" id="tPassLogin"  value="<?=$_GET['tPassLogin']?>">	
+								<input class="form-control tamanioNombre" type="password" name="passwordlogin" id="passwordlogin"  value="<?=$_GET['tPassLogin']?>">	
 							</td>
 							<td>
 							</td>

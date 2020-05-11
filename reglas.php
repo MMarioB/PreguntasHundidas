@@ -1,3 +1,11 @@
+<?php 
+session_start();
+$nombre = $_SESSION['nombre'];
+
+echo "<h1>BIENVENIDO". $usuario . "</h1>";
+
+?>
+
 <!doctype html>
 <html lang="es" class="h-100">
 <head>
