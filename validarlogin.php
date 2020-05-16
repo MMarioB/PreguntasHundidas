@@ -14,8 +14,9 @@ if($array['contar']>0){
     $_SESSION['user'] = $usuario;
     header("location: bienvenida.php");
 } else{
-    echo "Datos incorrectos!";
+    $error= "Datos incorrectos!";
+    header("location: login.php");
 }
 
-
+mysqli_close($conexion);
 ?>

@@ -1,8 +1,32 @@
+<?php
+        $servername = "hl192.dinaserver.com";
+		$database = "cfgsl_1dam20";
+		$username = "cfgsl_ad1dam20";
+		$password = "morcilla1";
+        $id=$_POST['id'];
+        
+			//Crear conexion
+			$conexion = mysqli_connect($servername, $username, $password, $database);
+			$acentos = $conexion -> query("SET NAMES 'utf8'");
+			/* Comprobar conexión */
+						if (mysqli_connect_errno()) {
+							printf("Conexión fallida: %s\n", mysqli_connect_error());
+							exit();
+						}
+
+                $sql = 'DELETE FROM 3registro WHERE idusuario='. $id .'';
+                        echo $sql;
+			
+			$rs=mysqli_query($conexion, $sql);
+
+
+			mysqli_close($conexion);       
+    ?>
 <!doctype html>
 <html lang="es" class="h-100">
 <head>
 <meta charset="utf-8">
-	<title>Bienvenido!</title>
+	<title>Borrar</title>
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<link rel="icon" type="image/png" href="imgs/logo.png" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -17,16 +41,11 @@
 	<div class="container h-100">
 		<div class="row justify-content-center h-100">
 			<div class="col-sm-8 align-self-center text-center">
-            <?php 
-                session_start();
-                $usuario = $_SESSION['user'];
-
-                echo "<h1>BIENVENIDO". $usuario . "</h1>";
-
-                echo "Que desea hacer? <br>";
-            ?>
-            <button class="btn-group-sm campos submit" onclick="location.href='reglas.php'">Leer Reglas</button>
-            <button class="btn-group-sm campos submit" onclick="location.href='salir.php'">Salir</button>
+                <form action="borrarregistros.php" method="post" name="formu" id="formu">
+                    Borrar
+                    <input class="form-control tamanioNombre" type="text" name="id" id="id">
+                    <input class="btn-group-sm campos submit" type="submit" id="borrar" name="borrar" width="100" value="Borrar">
+                </form>
 			</div>
 		</div>	
 	</div>
