@@ -71,3 +71,6 @@
             position: absolute;
             right: 15px;
         }
+        .badges {
+            width: 100px;
+        }
