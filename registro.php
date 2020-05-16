@@ -48,8 +48,8 @@
                 $error_nombre = "El nombre no puede estar vacío";
             } else{
                 $nombre = test_input($_POST['nombre']);
-                if (!preg_match('/^[A-ZÁÉÍÓÚ][a-záéíóú]*$/', $nombre)){
-                    $error_nombre = "El nombre empieza por mayúscula";
+                if (strlen($nombre)<4){
+                    $error_nombre = "El nombre debe contener al menos 4 caracteres";
                 }
             }
 
@@ -71,7 +71,6 @@
                 if ($_POST){
                    $error_pass="";
                    if (validar_clave($_POST["password"], $error_pass)){
-                      echo "Contraseña Correcta";
                    }else{
                       echo "Contraseña NO VÁLIDA: " . $error_pass;
                    }
@@ -79,7 +78,6 @@
 
             }
             if($error_nombre=="" && $error_correo=="" && $error_pass=="") {
-              echo "Registro completado con exito!"; 
               echo header('Location: login.php');
             }
             
@@ -96,7 +94,7 @@
         $pass= $_POST['password'];
         
     
-        if($nombre != "" || $mail!= "" || $pass!= ""){
+        if($error_nombre=="" && $error_correo=="" && $error_pass==""){
 			//Crear conexion
 			$conexion = mysqli_connect($servername, $username, $password, $database);
 			$acentos = $conexion -> query("SET NAMES 'utf8'");
@@ -106,8 +104,10 @@
 							exit();
 						}
 
-
-			$sql = 'insert into 3registro (nombre,email,contrasena) values ('.'"'.$nombre.'","'.$mail.'","'.$pass.'")';
+            if($nombre!="" && $mail !="" && $pass!=""){
+                $sql = 'insert into 3registro (nombre,email,contrasena) values ('.'"'.$nombre.'","'.$mail.'","'.$pass.'")';
+            }
+			
 			
 			$rs=mysqli_query($conexion, $sql);
 
@@ -115,7 +115,7 @@
 			mysqli_close($conexion);
 			
 		} else {
-			echo "Error al registrar usuario";
+			$errorregistro= "Error al registrar usuario";
 		}
     
         
@@ -190,28 +190,9 @@
 						</tr>
 					</table>
 				</form>
+                <?php echo $errorregistro;?>
 			</div>
 		</div>	
 	</div>
 </body>
 </html>
-
-<form action="formulario.php" method="POST">
-		
-		<p>
-		Nombre:<br/>
-		<input type="text" name="nombre">
-		</p>
-
-		<p>
-		Password:<br/>
-		<input type="password" name="password">
-		</p>
-
-		<p>
-		correo electrónico:<br/>
-		<input type="text" name="email">
-		</p>
-
-		<p><input type="submit" value="enviar datos"></p> 
-	</form>

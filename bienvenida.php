@@ -13,12 +13,20 @@
 	<script src="https://kit.fontawesome.com/e72a8c50e1.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="h-100" background="imgs/fondo.jpg">
+<body class="h-100">
 	<div class="container h-100">
 		<div class="row justify-content-center h-100">
 			<div class="col-sm-8 align-self-center text-center">
-				<img src="imgs/reglasPH_.png" width="100%" height="100%">
-				<button class="btn-group-sm campos submit" onclick="location.href='buscaminas.php'">JUGAR!</button>
+            <?php 
+                session_start();
+                $usuario = $_SESSION['user'];
+
+                echo "<h1>BIENVENIDO". $usuario . "</h1>";
+
+                echo "Que desea hacer? <br>";
+            ?>
+            <button class="btn-group-sm campos submit" onclick="location.href='reglas.php'">Leer Reglas</button>
+            <button class="btn-group-sm campos submit" onclick="location.href='salir.php'">Salir</button>
 			</div>
 		</div>	
 	</div>
