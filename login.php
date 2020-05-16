@@ -16,7 +16,7 @@
 	<div class="container h-100">
 		<div class="row justify-content-center h-100">
 			<div class="col-sm-8 align-self-center text-center">
-				<form action="reglas.php" method="post" name="formu" id="formu">
+				<form action="validarlogin.php" method="post" name="formu" id="formu">
 					<table border="0" width="100%" height="100%" cellpadding="8">
 						<tr>
 							<td align="right">
@@ -39,7 +39,7 @@
 						<tr>
 							<td align="right"><i class="fas fa-ship colorIconos"></i></td>
 							<td align="left">
-								<input class="form-control tamanioNombre" type="text" name="tNombreLogin" id="tNombreLogin" maxlength="15" value="<?=$_GET['tNombreLogin']?>">
+								<input class="form-control tamanioNombre" type="text" name="nombrelogin" id="nombrelogin" value="<?=$_GET['nombrelogin']?>">
 							</td>
 							<td>
 							</td>
@@ -58,7 +58,7 @@
 						<tr>
 							<td align="right"><i class="fas fa-lock colorIconos"></i></td>
 							<td align="left">
-								<input class="form-control tamanioNombre" type="password" name="tPassLogin" id="tPassLogin"  value="<?=$_GET['tPassLogin']?>">	
+								<input class="form-control tamanioNombre" type="password" name="passwordlogin" id="passwordlogin"  value="<?=$_GET['passwordlogin']?>">	
 							</td>
 							<td>
 							</td>
