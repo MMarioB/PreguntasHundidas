@@ -85,6 +85,18 @@
 								
 							</td>
 						</tr>
+						<tr>
+							<td>
+							</td>
+							<td>
+								<?php 
+									session_start();
+									echo '<div class="badge-pill badge-danger badges"><font face="Comic Neue">'.$_SESSION['error'].'</font></div>';
+								?>
+							</td>
+							<td>
+							</td>
+						</tr>
 					</table>
 				</form>
 			</div>

@@ -134,7 +134,7 @@
 						</tr>
 						<tr>
 							<td align="left" colspan="3">
-								<b><font face="Comic Neue" color="#575d6a" size="3">¿Aún no te has registrado? Escríbenos tus datos y al instante podrás jugar a Preguntas Hundidas!</font></b>
+								<b><font face="Comic Neue" color="#575d6a" size="3">¿Ya estas registrado? Pincha <a href="login.php"><font face="Comic Neue" color="#575d6a">Aquí</font></a> y ve a Loguearte!</font></b>
 							</td>
 						</tr>
 						<tr>
@@ -160,7 +160,7 @@
 						</tr>
 						<tr>
 							<td><i class="fas fa-envelope colorIconos"></i></td>
-							<td align="left">
+							<td align="left" colspan="2">
 								<input class="form-control" type="text" name="email" id="email" >
                                 <span>
                                     <?php echo '<div class="badge-pill badge-danger"><font face="Comic Neue">'.$error_correo.'</font></div>';?>
@@ -176,7 +176,7 @@
 						</tr>
 						<tr>
 							<td><i class="fas fa-lock colorIconos"></i></td>
-							<td align="left">
+							<td align="left" colspan="2">
 								<input class="form-control" type="password" name="password" id="password">	
                                 <?php echo '<div class="badge-pill badge-danger"><font face="Comic Neue">'.$error_pass.'</font></div>';?>
 							</td>
@@ -188,9 +188,23 @@
                                 
 							</td>
 						</tr>
+                        <tr>
+							<td></td>
+							<td>
+								<span width="100px">
+									<?php 
+										if($error_correo=="" && $error_pass==""){
+											
+										} else {
+											echo '<div class="badge-pill badge-danger badges"><font face="Comic Neue">'.$errorregistro.'</font></div>';
+										}
+									?>
+								</span>
+							</td>
+							<td></td>
+						</tr>
 					</table>
 				</form>
-                <?php echo $errorregistro;?>
 			</div>
 		</div>	
 	</div>

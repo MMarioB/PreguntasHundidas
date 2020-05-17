@@ -145,8 +145,14 @@
 						<tr>
 							<td align="center" colspan="3">
 								<input class="btn-group-sm campos submit" type="submit" id="btnReset" name="btnReset" width="100" value="Recupera tu Contraseña">
-                                
 							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<a href="login.php"><font face="Comic Neue" color="#575d6a" size="1">Ir al Login</font></a>
+							</td>
+							<td></td>
 						</tr>
 						<tr>
 							<td></td>
