@@ -16,14 +16,27 @@
 	<div class="container h-100">
 		<div class="row justify-content-center h-100">
 			<div class="col-sm-8 align-self-center text-center">
+                <?php 
+                    session_start();
+                    echo $_SESSION['puntuaciones'];
+                    
+                
+                ?>
                 PUNTUACIONES
                 <table border="1" width="100%" height="100%" cellpadding="8">
                     <tr>
                         <td>
-                            Jugador
+                            <?php
+                                session_start();
+                                $usuario = $_SESSION['user'];
+                                echo $usuario;
+                            ?>
                         </td>
                         <td>
-                            Puntos
+                            <?php
+                                session_start();
+                                echo $_SESSION['aciertos'];
+                            ?>
                         </td>
                     </tr>
                     <tr>
@@ -59,6 +72,8 @@
                         </td>
                     </tr>
                 </table>
+                <button class="btn-group-sm campos submit" onclick="location.href='buscaminas.php'">Jugar de Nuevo!</button>
+			    <?php echo "<br><br>";?>
             </div>
 		</div>	
 	</div>

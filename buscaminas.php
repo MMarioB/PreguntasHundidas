@@ -120,24 +120,24 @@
 	<div class="container h-100">
 		<div class="row justify-content-center h-100">
 			<div class="col-sm-8 align-self-center text-center">
-                <?php 
-                    //Llamamos a todas las funciones para que se genere el array con el juego hecho.
-                    vector_v($vector,$total_casillas,$V);
-                    poner_m($B,$V,$H,$vector);
-                    poner_n($H,$V,$vector);
-                ?>
-                <h1><b>PREGUNTAS HUNDIDAS</b></h1>
+               <?php 
+                  //Llamamos a todas las funciones para que se genere el array con el juego hecho.
+                  vector_v($vector,$total_casillas,$V);
+                  poner_m($B,$V,$H,$vector);
+                   poner_n($H,$V,$vector);
+                  //Comprobamos que seguimos logueados
+                  session_start();
+                  if (empty($_SESSION['user'])) {
+                  header("location:login.php");
+                  }
+                  echo $_SESSION['buscaminas'];
+                  echo "Aciertos: " . $_SESSION['aciertos'];
+               ?>
+                <font face='Comic Neue' color='#085ba4'><h1>PREGUNTAS HUNDIDAS</h1></font>
                 <table border='3'cellpadding='20' align="center">
                     <tr>
                         <td>
-                            
-                            <?php 
-                                if($vector[0][0]=='*'){
-                                    echo '<a href="../preguntashundidas/preguntas/pregunta1.php"><img src="imgs/incognita.png" width="30px" height="30px"/></a>';
-                                } else {
-                                    echo $vector[0][0];
-                                }
-                            ?>
+                            <a href="../preguntashundidas/preguntas/pregunta1.php"><img src="imgs/incognita.png" width="30px" height="30px"/></a>
                         </td>
                         <td>
                             <a href="../preguntashundidas/preguntas/pregunta1.php"><img src="imgs/incognita.png" width="30px" height="30px"/></a>
@@ -274,8 +274,6 @@
                          </td>
                     </tr>
                 </table>
-                
-                <button class="btn-group-sm campos submit" onclick="location.href='puntuaciones.php'">PUNTUACIONES</button>
             </div>
 		</div>	
 	</div>

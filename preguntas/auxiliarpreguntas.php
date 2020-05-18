@@ -19,17 +19,23 @@
 			<div class="col-sm-8 align-self-center text-center">
             <?php 
                 session_start();
-                $usuario = $_SESSION['user'];
-
-				echo "<font face='Comic Neue' color='#085ba4'><h1>BIENVENID@ ". $usuario . "</h1></font>";
-				
-
-				echo "<font face='Comic Neue' color='#575d6a'>¿Qué desea hacer?</font><br>";
-				echo "<br><br>";
+                $answer = $_POST['respuestas'];
+                $_SESSION['aciertos'];
+                $_SESSION['buscaminas']='';
+                $_SESSION['puntuaciones']='';  
+                if (!isset($_SESSION['aciertos'])){
+                    $_SESSION['aciertos']=0;
+                } else {
+                    if($answer=='correcta'){
+                        $_SESSION['aciertos']=$_SESSION['aciertos']+1;
+                        $_SESSION['buscaminas']="<div class='alert alert-success' role='alert'>".'Has acertado! Sigue jugando'."</div>";
+                        header("Location: http://cfgslosnaranjos.net/1dam19/mariob/php/preguntashundidas/buscaminas.php");
+                    } else {
+                        $_SESSION['puntuaciones']="<div class='alert alert-danger' role='alert'>".'Incorrecta. Has perdido!'."</div>";
+                        header("Location: http://cfgslosnaranjos.net/1dam19/mariob/php/preguntashundidas/auxiliarpuntuaciones.php");
+                    } 
+                }  
             ?>
-            <button class="btn-group-sm campos submit" onclick="location.href='reglas.php'">Leer Reglas</button>
-			<?php echo "<br><br>";?>
-            <button class="btn-group-sm campos submit" onclick="location.href='salir.php'">Salir</button>
 			</div>
 		</div>	
 	</div>
