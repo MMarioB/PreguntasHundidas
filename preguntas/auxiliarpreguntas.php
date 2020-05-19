@@ -29,7 +29,7 @@
                     if($answer=='correcta'){
                         $_SESSION['aciertos']=$_SESSION['aciertos']+1;
                         $_SESSION['buscaminas']="<div class='alert alert-success' role='alert'>".'Has acertado! Sigue jugando'."</div>";
-                        header("Location: http://cfgslosnaranjos.net/1dam19/mariob/php/preguntashundidas/buscaminas.php");
+                        header("Location: http://cfgslosnaranjos.net/1dam19/mariob/php/preguntashundidas/buscaminasaux1.php");
                     } else {
                         $_SESSION['puntuaciones']="<div class='alert alert-danger' role='alert'>".'Incorrecta. Has perdido!'."</div>";
                         header("Location: http://cfgslosnaranjos.net/1dam19/mariob/php/preguntashundidas/auxiliarpuntuaciones.php");

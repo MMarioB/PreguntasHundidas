@@ -45,7 +45,7 @@ $consulta = "SELECT * FROM 3preguntas WHERE idpregunta=".$aleatorio." limit 1";
 		<div class="row justify-content-center h-100">
 			<div class="col-sm-8 align-self-center text-center">
                 <font face='Comic Neue' color='#085ba4'><h1><?php echo $titulo; ?></h1></font><br>
-                <form  method="post" action="auxiliarpreguntas.php" name="formu" id="formu">
+                <form  method="post" action="auxiliarpreguntas4.php" name="formu" id="formu">
                      <table border="0" width="100%" height="100%" cellpadding="8">
                         <tr>
                             <td align="right"><i class="fas fa-ship colorIconos" ></i></td>
