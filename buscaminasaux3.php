@@ -158,11 +158,11 @@ function poner_n($H, $V, &$vector)
                         <td>
                             <?php
                             session_start();
-                            if ($vector[0][2] == '*') {
+                            if ($_SESSION['matriz'][0][2] == '*') {
                                 $_SESSION['puntuaciones'] = "<div class='alert alert-danger' role='alert'>" . 'Incorrecta. Has perdido!' . "</div>";
                                 header("Location: http://cfgslosnaranjos.net/1dam19/mariob/php/preguntashundidas/auxiliarpuntuaciones.php");
                             } else {
-                                echo $vector[0][2];
+                                echo $_SESSION['matriz'][0][2];
                             }
 
                             ?>

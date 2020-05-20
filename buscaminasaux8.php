@@ -1,109 +1,4 @@
-<?php
-$H = 6;       //filas
-$V = 7;       //Columnes
-$B = 10;       //Bombas
-$total_casillas = $H * $V; //Guardo el total de las casillas para moverme luego en un for
-$vector;   //declaramos el vector vacio
 
-
-//vector vacio pero con todas las posiciones
-function vector_v(&$vector, $total_casillas, $V)
-{
-    $j = 0;
-    $p = 0;
-    for ($i = 1; $i <= $total_casillas; $i++) {
-        $vector[$p][$j] = "&nbsp"; //Primero dejamos las posiciones vacias para luego poner los asteriscos
-        if ($i % $V == 0) { //Si el modulo de $i con las columnas es 0 creamos otra fila y empezamos otra columna.
-            $p++;
-            $j = 0;
-        } else { //Si no es l modulo segimos creand casillas de columna.
-            $j++;
-        }
-    }
-    return $vector;
-}
-
-
-
-//Esta funcion introduce las minas aleatoriamente en el vector
-function poner_m($B, $V, $H, &$vector)
-{
-    $total = 1; //usaremos esta variable para controlar que se escriban correctamente las minas.
-    while ($total <= $B) {
-        $h = rand(0, $H - 1); //creamos un numero aleatorio para movernos por las filas
-        $v = rand(0, $V - 1); //creamos un numero para movernos por las columnas.
-        if ($vector[$h][$v] == "*") { //Si en esa posición aleatoria hay un asterisco que no haga nada
-
-        } else { //Si no hay un asterisco que lo ponga y que incremente el contador.
-            $vector[$h][$v] = "*";
-            $total++;
-        }
-    }
-    return $vector;
-}
-
-//Esta funcion pone los números que indican las posiciones de las minas
-function poner_n($H, $V, &$vector)
-{
-
-    for ($I = 0; $I < $H; $I++) {            //hacemos 2 fors que nos recorran el vector (columnas y filas)
-        for ($J = 0; $J < $V; $J++) {         //Tenemos 8 if's que miran las posiciones que rodean dónde nos encontremos
-            if ($vector[$I][$J + 1] == "*") { //miramos si delante hay un asterisco	
-                if ($vector[$I][$J] == "*") { //Si lo hay, ahí no hacemos nada.
-
-                } else {
-                    $vector[$I][$J] = $vector[$I][$J] + 1; //Si delante ha habido un número incrementamos en la posicion q estamos.
-                }
-            }
-            if ($vector[$I][$J - 1] == "*") { //A partir de aquí es lo mismo todo el rato pero cambiando la posicion.
-                if ($vector[$I][$J] == "*") { //Miramos detras, arriba,abajo,etc.
-
-                } else {
-                    $vector[$I][$J] = $vector[$I][$J] + 1;
-                }
-            }
-            if ($vector[$I - 1][$J - 1] == "*") {
-                if ($vector[$I][$J] == "*") {
-                } else {
-                    $vector[$I][$J] = $vector[$I][$J] + 1;
-                }
-            }
-            if ($vector[$I + 1][$J - 1] == "*") {
-                if ($vector[$I][$J] == "*") {
-                } else {
-                    $vector[$I][$J] = $vector[$I][$J] + 1;
-                }
-            }
-            if ($vector[$I - 1][$J] == "*") {
-                if ($vector[$I][$J] == "*") {
-                } else {
-                    $vector[$I][$J] = $vector[$I][$J] + 1;
-                }
-            }
-            if ($vector[$I + 1][$J] == "*") {
-                if ($vector[$I][$J] == "*") {
-                } else {
-                    $vector[$I][$J] = $vector[$I][$J] + 1;
-                }
-            }
-            if ($vector[$I - 1][$J + 1] == "*") {
-                if ($vector[$I][$J] == "*") {
-                } else {
-                    $vector[$I][$J] = $vector[$I][$J] + 1;
-                }
-            }
-            if ($vector[$I + 1][$J + 1] == "*") {
-                if ($vector[$I][$J] == "*") {
-                } else {
-                    $vector[$I][$J] = $vector[$I][$J] + 1;
-                }
-            }
-        }
-    }
-    return $vector;
-}
-
-?>
 <!doctype html>
 <html lang="es" class="h-100">
 
@@ -132,10 +27,7 @@ function poner_n($H, $V, &$vector)
         <div class="row justify-content-center h-100">
             <div class="col-sm-8 align-self-center text-center">
                 <?php
-                //Llamamos a todas las funciones para que se genere el array con el juego hecho.
-                vector_v($vector, $total_casillas, $V);
-                poner_m($B, $V, $H, $vector);
-                poner_n($H, $V, $vector);
+
                 //Comprobamos que seguimos logueados
                 session_start();
                 if (empty($_SESSION['user'])) {
@@ -175,11 +67,11 @@ function poner_n($H, $V, &$vector)
                         <td>
                             <?php
                             session_start();
-                            if ($vector[1][0] == '*') {
+                            if ($_SESSION['matriz'][1][0] == '*') {
                                 $_SESSION['puntuaciones'] = "<div class='alert alert-danger' role='alert'>" . 'Incorrecta. Has perdido!' . "</div>";
                                 header("Location: http://cfgslosnaranjos.net/1dam19/mariob/php/preguntashundidas/auxiliarpuntuaciones.php");
                             } else {
-                                echo $vector[1][0];
+                                echo $_SESSION['matriz'][1][0];
                             }
 
                             ?>

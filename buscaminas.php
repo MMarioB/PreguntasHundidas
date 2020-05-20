@@ -141,6 +141,7 @@ function poner_n($H, $V, &$vector)
             if (empty($_SESSION['user'])) {
                header("location:login.php");
             }
+            //Pasamos el buscaminas por sesion
             $_SESSION['matriz']=$vector;
             ?>
             <div class="content"><?php
