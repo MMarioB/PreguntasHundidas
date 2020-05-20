@@ -85,7 +85,7 @@
                             <?php
                             session_start();
                             if ($_SESSION['matriz'][1][6] == '*') {
-                                $_SESSION['puntuaciones'] = "<div class='alert alert-danger' role='alert'>" . 'Incorrecta. Has perdido!' . "</div>";
+                                $_SESSION['puntuaciones'] = "<div class='alert alert-danger' role='alert'>" . 'Incorrecta. Has topado con una mina o no te sabias la pregunta!!' . "</div>";
                                 header("Location: http://cfgslosnaranjos.net/1dam19/mariob/php/preguntashundidas/auxiliarpuntuaciones.php");
                             } else {
                                 echo $_SESSION['matriz'][1][6];

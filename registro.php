@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="es" class="h-100">
+
 <head>
-<meta charset="utf-8">
+	<meta charset="utf-8">
 	<title>Registro</title>
 	<link rel="stylesheet" href="css/estilos.css" type="text/css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -11,116 +12,121 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/e72a8c50e1.js" crossorigin="anonymous"></script>
 </head>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		setTimeout(function() {
+			$(".content").fadeOut(1500);
+		}, 3000);
+	});
+</script>
+<?php
+$error_nombre = '';
+$error_correo = '';
+$error_pass = '';
+if (isset($_POST['btnRegistro'])) {
+	function test_input($data)
+	{
+		// para evitar caracteres innecesarios
+		$data = trim($data);
+		// quita los espacios al principio y al final
+		$data = stripslashes($data);
+		// quita las barras inclinadas
+		return $data;
+	}
 
-    <?php
-        $error_nombre = '';
-        $error_correo = '';
-        $error_pass= '';
-        if( isset($_POST['btnRegistro']) ) { 
-            function test_input($data) {
-              // para evitar caracteres innecesarios
-              $data = trim($data);
-              // quita los espacios al principio y al final
-              $data = stripslashes($data);
-              // quita las barras inclinadas
-              return $data;
-            }
-            
-            function validar_clave($clave,&$error_pass){
-               if(strlen($clave) < 6){
-                  $error_pass = "La contraseña debe tener al menos 6 caracteres";
-                  return false;
-               }
-               if(strlen($clave) > 16){
-                  $error_pass = "La contraseña no puede tener más de 16 caracteres";
-                  return false;
-               }
-               if (!preg_match('`[A-Z]`',$clave)){
-                  $error_pass = "La contraseña debe tener al menos una letra mayúscula";
-                  return false;
-               }
-               $error_pass = "";
-               return true;
-            }
-            
-            // nombre 
-            if (empty($_POST['nombre'])) {
-                $error_nombre = "El nombre no puede estar vacío";
-            } else{
-                $nombre = test_input($_POST['nombre']);
-                if (strlen($nombre)<4){
-                    $error_nombre = "El nombre debe contener al menos 4 caracteres";
-                }
-            }
-
-            // correo
-            if (empty($_POST['email'])){
-                $error_correo = "El email no puede estar vacío";
-            } else {
-                $correo = test_input($_POST['email']);
-                if (!preg_match('/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}/', $correo)){
-                    $error_correo = "El formato del correo es erróneo"; 
-                }
-            }
-            
-            //contraseña
-            if (empty($_POST['password'])){
-                $error_pass = "La contraseña no puede estar vacía";
-            } else {
-                $contra = test_input($_POST['password']);
-                if ($_POST){
-                   $error_pass="";
-                   if (validar_clave($_POST["password"], $error_pass)){
-                   }else{
-                      echo "Contraseña NO VÁLIDA: " . $error_pass;
-                   }
-                }
-
-            }
-            if($error_nombre=="" && $error_correo=="" && $error_pass=="") {
-              echo header('Location: login.php');
-            }
-            
-            
-        }
-    ?>
-    <?php
-        $servername = "hl192.dinaserver.com";
-		$database = "cfgsl_1dam20";
-		$username = "cfgsl_ad1dam20";
-		$password = "morcilla1";
-        $nombre=$_POST['nombre'];
-        $mail=$_POST['email'];
-        $pass= $_POST['password'];
-        
-    
-        if($error_nombre=="" && $error_correo=="" && $error_pass==""){
-			//Crear conexion
-			$conexion = mysqli_connect($servername, $username, $password, $database);
-			$acentos = $conexion -> query("SET NAMES 'utf8'");
-			/* Comprobar conexión */
-						if (mysqli_connect_errno()) {
-							printf("Conexión fallida: %s\n", mysqli_connect_error());
-							exit();
-						}
-
-            if($nombre!="" && $mail !="" && $pass!=""){
-                $sql = 'insert into 3registro (nombre,email,contrasena) values ('.'"'.$nombre.'","'.$mail.'","'.$pass.'")';
-            }
-			
-			
-			$rs=mysqli_query($conexion, $sql);
-
-
-			mysqli_close($conexion);
-			
-		} else {
-			$errorregistro= "Error al registrar usuario";
+	function validar_clave($clave, &$error_pass)
+	{
+		if (strlen($clave) < 6) {
+			$error_pass = "La contraseña debe tener al menos 6 caracteres";
+			return false;
 		}
-    
-        
-    ?>
-    
+		if (strlen($clave) > 16) {
+			$error_pass = "La contraseña no puede tener más de 16 caracteres";
+			return false;
+		}
+		if (!preg_match('`[A-Z]`', $clave)) {
+			$error_pass = "La contraseña debe tener al menos una letra mayúscula";
+			return false;
+		}
+		$error_pass = "";
+		return true;
+	}
+
+	// nombre 
+	if (empty($_POST['nombre'])) {
+		$error_nombre = "El nombre no puede estar vacío";
+	} else {
+		$nombre = test_input($_POST['nombre']);
+		if (strlen($nombre) < 4) {
+			$error_nombre = "El nombre debe contener al menos 4 caracteres";
+		}
+	}
+
+	// correo
+	if (empty($_POST['email'])) {
+		$error_correo = "El email no puede estar vacío";
+	} else {
+		$correo = test_input($_POST['email']);
+		if (!preg_match('/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}/', $correo)) {
+			$error_correo = "El formato del correo es erróneo";
+		}
+	}
+
+	//contraseña
+	if (empty($_POST['password'])) {
+		$error_pass = "La contraseña no puede estar vacía";
+	} else {
+		$contra = test_input($_POST['password']);
+		if ($_POST) {
+			$error_pass = "";
+			if (validar_clave($_POST["password"], $error_pass)) {
+			} else {
+				echo "Contraseña NO VÁLIDA: " . $error_pass;
+			}
+		}
+	}
+	if ($error_nombre == "" && $error_correo == "" && $error_pass == "") {
+		echo header('Location: login.php');
+	}
+}
+?>
+<?php
+$servername = "hl192.dinaserver.com";
+$database = "cfgsl_1dam20";
+$username = "cfgsl_ad1dam20";
+$password = "morcilla1";
+$nombre = $_POST['nombre'];
+$mail = $_POST['email'];
+$pass = $_POST['password'];
+
+
+if ($error_nombre == "" && $error_correo == "" && $error_pass == "") {
+	//Crear conexion
+	$conexion = mysqli_connect($servername, $username, $password, $database);
+	$acentos = $conexion->query("SET NAMES 'utf8'");
+	/* Comprobar conexión */
+	if (mysqli_connect_errno()) {
+		printf("Conexión fallida: %s\n", mysqli_connect_error());
+		exit();
+	}
+
+	if ($nombre != "" && $mail != "" && $pass != "") {
+		$sql = 'insert into 3registro (nombre,email,contrasena) values (' . '"' . $nombre . '","' . $mail . '","' . $pass . '")';
+	}
+
+
+	$rs = mysqli_query($conexion, $sql);
+
+
+	mysqli_close($conexion);
+} else {
+	$errorregistro = "Error al registrar usuario";
+}
+
+
+?>
+
 <body class="h-100">
 	<div class="container h-100">
 		<div class="row justify-content-center h-100">
@@ -129,75 +135,86 @@
 					<table border="0" width="100%" height="100%" cellpadding="8">
 						<tr>
 							<td align="left" colspan="3">
-								<h1><font face="Comic Neue" color="#085ba4">Registro</font></h1>
+								<h1>
+									<font face="Comic Neue" color="#085ba4">Registro</font>
+								</h1>
 							</td>
 						</tr>
 						<tr>
 							<td align="left" colspan="3">
-								<b><font face="Comic Neue" color="#575d6a" size="3">¿Ya estas registrado? Pincha <a href="login.php"><font face="Comic Neue" color="#575d6a">Aquí</font></a> y ve a Loguearte!</font></b>
+								<b>
+									<font face="Comic Neue" color="#575d6a" size="3">¿Ya estas registrado? Pincha <a href="login.php">
+											<font face="Comic Neue" color="#575d6a">Aquí</font>
+										</a> y ve a Loguearte!</font>
+								</b>
 							</td>
 						</tr>
 						<tr>
 							<td align="left" colspan="3">
-								<b><font face="Comic Neue" color="#575d6a" size="1">ESCRIBE TU NOMBRE</font></b>
+								<b>
+									<font face="Comic Neue" color="#575d6a" size="1">ESCRIBE TU NOMBRE</font>
+								</b>
 							</td>
-								
+
 						</tr>
 						<tr>
-							<td><i class="fas fa-user colorIconos" ></i></td>
+							<td><i class="fas fa-user colorIconos"></i></td>
 							<td align="left" colspan="3">
-								<input class="form-control tamanioNombre" type="text" name="nombre" id="nombre" value="<?$_GET['nombre']?>">
-                                <span>
-                                    <?php echo '<div class="badge-pill badge-danger"><font face="Comic Neue">'.$error_nombre.'</font></div>';?>
-                                </span>
+								<input class="form-control tamanioNombre" type="text" name="nombre" id="nombre" value="<? $_GET['nombre'] ?>">
+								<span>
+									<?php echo '<div class="badge-pill badge-danger"><font face="Comic Neue">' . $error_nombre . '</font></div>'; ?>
+								</span>
 							</td>
 						</tr>
 						<tr>
 							<td align="left" colspan="3">
-								<b><font face="Comic Neue" color="#575d6a" size="1">ESCRIBE TU EMAIL</font></b>
+								<b>
+									<font face="Comic Neue" color="#575d6a" size="1">ESCRIBE TU EMAIL</font>
+								</b>
 							</td>
-								
+
 						</tr>
 						<tr>
 							<td><i class="fas fa-envelope colorIconos"></i></td>
 							<td align="left" colspan="2">
-								<input class="form-control" type="text" name="email" id="email" >
-                                <span>
-                                    <?php echo '<div class="badge-pill badge-danger"><font face="Comic Neue">'.$error_correo.'</font></div>';?>
-                                </span>
+								<input class="form-control" type="text" name="email" id="email">
+								<span>
+									<?php echo '<div class="badge-pill badge-danger"><font face="Comic Neue">' . $error_correo . '</font></div>'; ?>
+								</span>
 							</td>
 						</tr>
-						
+
 						<tr>
 							<td align="left" colspan="3">
-								<b><font face="Comic Neue" color="#575d6a" size="1">ESCRIBE TU CONTRASEÑA</font></b>
+								<b>
+									<font face="Comic Neue" color="#575d6a" size="1">ESCRIBE TU CONTRASEÑA</font>
+								</b>
 							</td>
-								
+
 						</tr>
 						<tr>
 							<td><i class="fas fa-lock colorIconos"></i></td>
 							<td align="left" colspan="2">
-								<input class="form-control" type="password" name="password" id="password">	
-                                <?php echo '<div class="badge-pill badge-danger"><font face="Comic Neue">'.$error_pass.'</font></div>';?>
+								<input class="form-control" type="password" name="password" id="password">
+								<?php echo '<div class="badge-pill badge-danger"><font face="Comic Neue">' . $error_pass . '</font></div>'; ?>
 							</td>
 						</tr>
-						
+
 						<tr>
 							<td align="center" colspan="3">
 								<input class="btn-group-sm campos submit" type="submit" id="btnRegistro" name="btnRegistro" width="100" value="Registro">
-                                
+
 							</td>
 						</tr>
-                        <tr>
+						<tr>
 							<td></td>
 							<td>
 								<span width="100px">
-									<?php 
-										if($error_correo=="" && $error_pass==""){
-											
-										} else {
-											echo '<div class="badge-pill badge-danger badges"><font face="Comic Neue">'.$errorregistro.'</font></div>';
-										}
+									<?php
+									if ($error_correo == "" && $error_pass == "") {
+									} else {
+										echo '<div class="content badge-pill badge-danger"><font face="Comic Neue">' . $errorregistro . '</font></div>';
+									}
 									?>
 								</span>
 							</td>
@@ -206,7 +223,8 @@
 					</table>
 				</form>
 			</div>
-		</div>	
+		</div>
 	</div>
 </body>
+
 </html>
